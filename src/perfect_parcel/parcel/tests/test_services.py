@@ -1,7 +1,6 @@
 from io import StringIO
 
 import pytest
-from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
 from parcel.models import Container, Organisation, Parcel
@@ -13,7 +12,7 @@ def xml_data():
     return """
             <Container>
                 <Id>123456</Id>
-                <ShippingDate>2023-01-01T00:00:00</ShippingDate>
+                <ShippingDate>2016-07-22T00:00:00+02:00</ShippingDate>
                 <Parcel>
                     <Receipient>
                         <Name>John Doe</Name>
@@ -44,9 +43,7 @@ def test_container_xml_parser(xml_data):
     parcel = Parcel.objects.first()
 
     # assert
-    assert container.shipping_date == timezone.make_aware(
-        parse_datetime("2023-01-01T00:00:00")
-    )
+    assert container.shipping_date == parse_datetime("2016-07-22T00:00:00+02:00")
     assert container.organisation == organisation
     assert parcel.recipient_name == "John Doe"
     assert parcel.street == "Main Street"

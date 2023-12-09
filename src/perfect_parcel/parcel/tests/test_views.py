@@ -11,7 +11,7 @@ from parcel.models import Container, Organisation, Parcel, Rule
 def xml_upload_fixture():
     xml_content = b"""<Container>
                       <Id>8520442</Id>
-                      <ShippingDate>2023-12-08T11:25:22.795540</ShippingDate>
+                      <ShippingDate>2016-07-22T00:00:00+02:00</ShippingDate>
                       <parcels>
                         <Parcel>
                           <Receipient>

@@ -1,6 +1,5 @@
 from xml.dom import minidom
 
-from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
 from .models import Container, Parcel
@@ -23,7 +22,8 @@ class ContainerXMLParser(object):
 
             container_obj = Container.objects.create(
                 id=container_id,
-                shipping_date=timezone.make_aware(shipping_date),
+                # shipping_date=timezone.make_aware(shipping_date),
+                shipping_date=shipping_date,
                 organisation=self.organisation,
             )
 

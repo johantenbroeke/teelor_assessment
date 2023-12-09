@@ -23,4 +23,3 @@ node_modules/*
 *hot-update*
 *.log
 volume/*
-*.sqlite3
