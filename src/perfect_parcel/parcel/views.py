@@ -56,7 +56,7 @@ class UploadXMLView(View):
             logger.exception(e)
             return HttpResponse("Error processing XML file", status=400)
 
-        return HttpResponse("XML File processed successfully")
+        return HttpResponseRedirect(reverse("organisation_parcels"))
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)

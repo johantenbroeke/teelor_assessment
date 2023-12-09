@@ -1,24 +1,48 @@
-<html>
-<head>
-    <title>Parcels from My Organisation</title>
-</head>
-<body>
-    <h1>Parcels from My Organisation</h1>
-    <p><a href="{% url 'upload_xml' %}">Upload XML File</a></p>
-    <ul>
-        {% for parcel in parcels %}
-            <li>{{ parcel.recipient_name }} - {{ parcel.city }}</li>
-            {% for dep in parcel.allocated_departments %}
-                <li>{{ dep.name }}</li>
-            {% endfor %}
-            <form method="post" action="{% url 'toggle_processed' parcel.id %}">
-                {% csrf_token %}
-                <button type="submit">{% if parcel.processed %}Mark as Unprocessed{% else %}Mark as Processed{% endif %}</button>
-            </form>
-        {% empty %}
-            <li>No parcels available.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
 
+<div class="p-3">
+<h1>Parcels from My Organisation</h1>
+<p><a href="{% url 'upload_xml' %}" class="btn btn-primary">Upload XML File</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Recipient Name</th>
+            <th>City</th>
+            <th>Postal code</th>
+            <th>Departments</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for parcel in parcels %}
+        <tr>
+            <td>{{ parcel.recipient_name }}</td>
+            <td>{{ parcel.city }}</td>
+            <td>{{ parcel.postal_code }}</td>
+            <td>
+                {% for dep in parcel.allocated_departments %}
+                    <span class="badge bg-primary mr-2">{{ dep.name }}</span>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ parcel.processed|yesno:"Processed,Unprocessed" }}</td>
+            <td>
+                <form method="post" action="{% url 'toggle_processed' parcel.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm {% if parcel.processed %}btn-warning{% else %}btn-success{% endif %}">
+                        {% if parcel.processed %}Mark as Unprocessed{% else %}Mark as Processed{% endif %}
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No parcels available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

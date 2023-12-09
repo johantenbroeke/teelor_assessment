@@ -1,16 +1,27 @@
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    {% if next %}
-        <input type="hidden" name="next" value="{{ next }}">
-    {% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height:100vh;">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Login</h3>
+                        <form method="post" class="form-signin">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_username">Username:</label>
+                                <input type="text" class="form-control" id="id_username" name="username" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password">Password:</label>
+                                <input type="password" class="form-control" id="id_password" name="password" required>
+                            </div>
+                            <p></p>
+                            <button class="btn btn-primary btn-block" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
