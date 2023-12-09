@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Parcels from My Organisation</title>
+</head>
+<body>
+    <h1>Parcels from My Organisation</h1>
+    <p><a href="{% url 'upload_xml' %}">Upload XML File</a></p>
+    <ul>
+        {% for parcel in parcels %}
+            <li>{{ parcel.recipient_name }} - {{ parcel.city }}</li>
+            {% for dep in parcel.allocated_departments %}
+                <li>{{ dep.name }}</li>
+            {% endfor %}
+            <form method="post" action="{% url 'toggle_processed' parcel.id %}">
+                {% csrf_token %}
+                <button type="submit">{% if parcel.processed %}Mark as Unprocessed{% else %}Mark as Processed{% endif %}</button>
+            </form>
+        {% empty %}
+            <li>No parcels available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
