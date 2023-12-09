@@ -1,4 +1,7 @@
+import datetime
+
 import pytest
+from django.utils import timezone
 
 from parcel.models import Container, Department, Organisation, Parcel, Rule
 
@@ -40,7 +43,9 @@ def parcel_fixture(rule):
     )
     container = Container.objects.create(
         id=8520442,
-        shipping_date="2023-12-08T11:25:22.795540",
+        shipping_date=timezone.make_aware(
+            datetime.datetime(2023, 12, 8, 11, 25, 22, 795540)
+        ),
         organisation=organisation,
     )
     parcel = Parcel.objects.create(

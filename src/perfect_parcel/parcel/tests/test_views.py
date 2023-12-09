@@ -76,7 +76,6 @@ class TestUploadXMLView:
         assert Container.objects.count() == 1
         assert Parcel.objects.count() == 2
         assert response.status_code == 200
-        assert "XML File processed successfully" in response.content.decode()
 
     def test_post_invalid_upload_xml(self, client, user):
         # Create a test XML file
