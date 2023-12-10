@@ -26,4 +26,21 @@ Install dependencies:
 
     python manage.py runserver 0.0.0.0:7777
 
+## Demo users
 
+In the sqlite db there is an admin user.
+
+    username: admin
+    password: admin
+
+This user can upload container-xml, create organisations, create departments and configure business rules for organisations.
+This user can also create and assign users to organisations.
+
+There is also an demo user.
+
+    username: demo
+    password: parcel123
+
+This user can not access the Django admin and only upload XML and process parcels for his organisation.
+
+*NOTE: Each container-id can only be uploaded once.*
